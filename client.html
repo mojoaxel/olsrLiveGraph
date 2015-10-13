@@ -1,0 +1,478 @@
+
+<!doctype html>
+<html>
+<head>
+<title>Network | Sizing</title>
+
+	<style>
+		html {
+			width: 100%;
+			height: 100%;
+		}
+		
+		body {
+			padding: 0px;
+			margin: 0px;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+		}
+
+		h1 {
+			z-index: 2;
+			position: absolute;
+			top: 2%;
+			left: 2%;
+			
+			padding: 0px;
+			margin: 0px;
+			
+			font: 32px sans-serif;
+			color: lightgray;
+			font-weight: bold;
+			text-shadow: 0px 0px 10px Magenta;
+		}
+
+		#mynetwork {
+			z-index: 1
+			position: absolute;
+			top: 0px;
+			bottom: 0px;
+			left: 0px;
+			right: 0px;
+			
+			width: 100%;
+			height: 100%;
+			
+			padding: 0px;
+			margin: 0px;
+			
+			color: white;
+			background-color: black;
+		}
+	</style>
+
+<script type="text/javascript" src="static/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="static/lodash/lodash.min.js"></script>
+<script type="text/javascript" src="static/vis/dist/vis.min.js"></script>
+
+<link href="static/vis/dist/vis.min.css" rel="stylesheet" type="text/css" />
+<link href="static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		
+		function render(nodes, edges, options) {
+			settings = {
+				nodes: {
+					'10.50.56.0/22': {
+						name: "Hassberge",
+						size: 22,
+						group: 'hood',
+						color: 'green'
+					},
+					'10.50.60.0/22': {
+						name: "HassbergeSued2",
+						size: 22,
+						group: 'hood',
+						color: 'green'
+					},
+					'10.50.40.0/21': {
+						name: "Nürnberg",
+						size: 21,
+						group: 'hood',
+						color: 'Aqua'
+					},
+					'10.50.32.0/21': {
+						name: "Fürth",
+						size: 21,
+						group: 'hood',
+						color: 'red'
+					},
+					'10.50.72.0/21': {
+						name: "Würzburg",
+						size: 21,
+						group: 'hood',
+						color: 'blue'
+					},
+					'10.50.48.0/21': {
+						name: "Ansbach",
+						size: 21,
+						group: 'hood',
+						color: 'orange'
+					},
+					'10.50.64.0/21': {
+						name: "Erlangen",
+						size: 21,
+						group: 'hood',
+						color: 'DarkOrchid'
+					},
+					'10.50.80.0/21': {
+						name: "BGL",
+						size: 21,
+						group: 'hood',
+						color: 'yellow'
+					},
+					'10.50.16.0/20': {
+						name: "Default",
+						size: 20,
+						group: 'hood',
+						color: 'white'
+					},
+					'10.50.240.0/21': {
+						name: "Aux",
+						size: 21,
+						group: 'hood',
+						color: 'DeepPink'
+					},
+					
+					'10.50.72.6': {
+						name: 'fff-wue1'
+					},
+					'10.50.80.1': {
+						name: 'watzmann'
+					},
+					'10.50.80.2': {
+						name: 'staufen'
+					},
+					'10.50.240.1': {
+						name: 'fff-bbg'
+					},
+					'10.50.240.2': {
+						name: 'fff-fra1'
+					},
+					
+					'10.50.252.0': {
+						name: 'fff_ro1'
+					},
+					'10.50.252.1': {
+						name: 'nue1'
+					},
+					'10.50.252.2': {
+						name: 'fff_ro1'
+					},
+					'10.50.252.3': {
+						name: 'watzmann'
+					},
+					'10.50.252.4': {
+						name: 'fff_ro1'
+					},
+					'10.50.252.5': {
+						name: 'staufen'
+					},
+					'10.50.252.6': {
+						name: 'fff_ro1'
+					},
+					'10.50.252.7': {
+						name: 'has2'
+					},
+					'10.50.252.8': {
+						name: 'fff_ro1'
+					},
+					'10.50.252.9': {
+						name: 'has'
+					},
+					'10.50.252.10': {
+						name: 'frei'
+					},
+					'10.50.252.11': {
+						name: 'frei'
+					},
+					'10.50.252.12': {
+						name: 'fff-has2'
+					},
+					'10.50.252.13': {
+						name: 'fff-gw-cdfue1'
+					},
+					'10.50.252.14': {
+						name: 'fff-gw-m1'
+					},
+					'10.50.252.15': {
+						name: 'fff-gw-cdfue1'
+					},
+					'10.50.252.16': {
+						name: 'KleeV2'
+					},
+					'10.50.252.17': {
+						name: 'fff-gw-cdfue1'
+					},
+					'10.50.252.18': {
+						name: 'KleeV2'
+					},
+					'10.50.252.19': {
+						name: 'nue1'
+					},
+					'10.50.252.20': {
+						name: 'KleeV2'
+					},
+					'10.50.252.21': {
+						name: 'ro1'
+					},
+					'10.50.252.22': {
+						name: 'fff-gw-yaga'
+					},
+					'10.50.252.23': {
+						name: 'fff-wue1'
+					},
+					'10.50.252.24': {
+						name: 'fff-gw-m1'
+					},
+					'10.50.252.25': {
+						name: 'fff-has2'
+					},
+					'10.50.252.26': {
+						name: 'fff-gw-m1'
+					},
+					'10.50.252.27': {
+						name: 'fff-wue1'
+					},
+					'10.50.252.28': {
+						name: 'fff-bbg'
+					},
+					'10.50.252.29': {
+						name: 'fff-nue1'
+					},
+					'10.50.252.30': {
+						name: 'fff-bbg'
+					},
+					'10.50.252.31': {
+						name: 'fff-ro1'
+					},
+					'10.50.252.32': {
+						name: 'fff-bbg'
+					},
+					'10.50.252.33': {
+						name: 'fff-has2'
+					},
+					'10.50.252.34': {
+						name: 'fff-bbg'
+					},
+					'10.50.252.35': {
+						name: 'KleeV2'
+					},
+					'10.50.252.36': {
+						name: 'fff-wue1'
+					},
+					'10.50.252.37': {
+						name: 'fff-bbg'
+					},
+					'10.50.252.38': {
+						name: 'fff-gw-m1'
+					},
+					'10.50.252.39': {
+						name: 'ro1'
+					},
+					'10.50.252.40': {
+						name: 'fff-gw-yaga'
+					},
+					'10.50.252.41': {
+						name: 'ro1'
+					},
+					'10.50.252.42': {
+						name: 'fff-gw-yaga'
+					},
+					'10.50.252.43': {
+						name: 'nue1'
+					},
+					'10.50.252.44': {
+						name: 'fff-roffl'
+					},
+					'10.50.252.45': {
+						name: 'fff-has2'
+					},
+					'10.50.252.46': {
+						name: 'fff-fra1'
+					},
+					'10.50.252.47': {
+						name: 'fff-bbg'
+					},
+					'10.50.252.48': {
+						name: 'fff-fra1'
+					},
+					'10.50.252.49 ': {
+						name: 'kleeV2'
+					},
+					'10.50.252.250': {
+						name: 'fff-gw-cdfue1'
+					},
+					'10.50.252.251': {
+						name: 'TestsystemChristianD'
+					}
+					
+				}
+			}
+			
+			nodes = _.map(nodes, function(node) {
+				var map = settings.nodes[node.id];
+				if (map) {
+					node.label = map.name + "\n" + node.id;
+					
+					// color
+					node.icon = {
+						color: map.color || node.color
+					};
+					
+					// size
+					if (map.size && map.size > 0) node.icon.size = (23-map.size)*70;
+					
+					// member of a group?
+					node.group = map.group || node.group;
+					
+					// delete default shape; use group shape
+					delete node.shape;
+				} else {
+					node.group = node.group || 'gateway'
+				}
+				
+				return node;
+			});
+			
+			/* combine edges with the same to/from ant the same value to one edge */
+			edges = _.reject(_.map(edges, function(edge1) {
+				_.each(edges, function(edge2) {
+					if (edge1.from === edge2.to &&
+						edge1.to === edge2.from &&
+						edge1.label === edge2.label && 
+						!edge1.deleteme && !edge2.deleteme) {
+						
+						//edge1.dir = "both";
+						edge1.arrows = { to: true, from: true };
+						edge2.deleteme = true;
+					}
+				});
+				return edge1;
+			}), function(edge) {
+				return edge.deleteme;
+			});
+			
+			/* change some settings */
+			edges = _.map(edges, function(edge) {
+				var value = edge.label ? parseFloat(edge.label)*2 : 1
+				
+				if (edge.label === "HNA") {
+					edge.label = "";
+					edge.dashes = true;
+					edge.value = 3;
+					
+					var targetNode = _.find(nodes, 'id', edge.to);
+					if (targetNode) {
+						edge.color = targetNode.icon.color;
+					}
+					
+					edge.color = 'blue';
+				} else if (edge.label === "1.000") {
+					edge.label = "1.0";
+					edge.value = 2;
+				} else {
+					edge.value = value;
+				}
+				
+				edge.font = {align: 'middle'}
+				edge.arrows = {
+					from: (edge.arrows == 'from') ? { scaleFactor: 1.3/value } : false,
+					to: (edge.arrows == 'to') ? { scaleFactor: 1.3/value } : false,
+				}
+				return edge;
+			});
+			
+			options = _.extend(options, {
+				layout: {
+					randomSeed: 7
+				},
+				groups: {
+					hood: {
+						shape: 'icon',
+						icon: {
+							face: 'FontAwesome',
+							code: '\uf1eb'
+						}
+					}
+				},
+				nodes: {
+					font: {
+						size: 32,
+						color: 'white'
+					},
+					borderWidth: 2,
+					color: '#666'
+				},
+				edges: {
+					smooth: {
+						type: "dynamic",
+						forceDirection: "horizontal",
+						roundness: 0.8
+					},
+					font: {
+						size: 22,
+						color: 'white'
+					},
+					color: 'gray'
+				},
+				physics: {
+					solver: "forceAtlas2Based",
+					forceAtlas2Based: {
+						gravitationalConstant: -100,
+						centralGravity: 0.001,
+						springLength: 80
+					},
+					maxVelocity: 150,
+					minVelocity: 2,
+					timestep: 0.7
+				}
+			});
+	
+			var $container = $('#mynetwork');
+			
+			var network = new vis.Network($container.get(0), {
+				nodes: nodes,
+				edges: edges
+			}, options);
+		};
+		
+		function loadDotFile() {
+			$.get("/DOTgraph", function(graph) {
+				var parsedData = vis.network.convertDot(graph);
+				var nodes = parsedData.nodes;
+				var edges = parsedData.edges;
+				var options = parsedData.options;
+				render(nodes, edges, options);
+			});
+		};
+		
+		function loadData() {
+			$.getJSON("/graph", function(graph) {
+				
+				var nodes = [];
+				_.each(graph.nodes, function(node) {
+					nodes.push({
+						id: node.id,
+						label: node.label,
+						shape: node.shape
+					});
+				});
+				
+				var edges = [];
+				_.each(graph.edges, function(edge) {
+					edges.push({
+						from: edge.v,
+						to: edge.w
+					});
+				});
+				
+				var options = {};
+				
+				render(nodes, edges, options);
+			});
+		};
+		
+		loadDotFile();
+		//loadData();
+	
+	});
+</script>
+</head>
+<body>
+	<h1>Freifunk-Franken Backbone</h1>
+	<div id="mynetwork"></div>
+</body>
+</html>
