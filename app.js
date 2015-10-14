@@ -1,13 +1,13 @@
 var _ = require('lodash-node');
 var fs = require('fs');
 var path = require('path');
+var nconf = require('nconf');
+nconf.argv().env().file({ file: './settings.json' });
 
 var dot = require('graphlib-dot')
 var express = require('express');
 var app = require('express.io')()
 app.http().io()
-
-var graph = dot.read(fs.readFileSync('topology.dot', 'UTF-8'));
 
 /*
 app.io.route('ready', function(req) {
@@ -23,10 +23,12 @@ app.get('/', function(req, res) {
 });
 
 app.get('/DOTgraph', function(req, res) {
-	res.send(fs.readFileSync('topology.dot', 'UTF-8'));
+	res.send(fs.readFileSync(nconf.get('topologyFile'), 'UTF-8'));
 });
 
 app.get('/graph', function(req, res) {
+	var graph = dot.read(fs.readFileSync('topology.dot', 'UTF-8'));
+	
 	var nodes = _.map(graph.nodes(), function(node) {
 		console.log(_.extend({ id: node }, graph.node(node)));
 		return _.extend({ id: node }, graph.node(node));
@@ -47,4 +49,4 @@ app.get('/api/edges', function(req, res) {
 	res.send(graph._nodes);
 })
 
-app.listen(8080)
+app.listen(nconf.get('port'));
