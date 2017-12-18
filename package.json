@@ -14,7 +14,7 @@
     "url": "https://github.com/mojoaxel/olsrLiveGraph/issues"
   },
   "dependencies": {
-    "nconf": "~0.9.0",
+    "nconf": "~0.10.0",
     "lodash-node": "~3.10.1",
     "coffee-script": "~1.12.1",
     "express": "~5.0.0-alpha.3",
