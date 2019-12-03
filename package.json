@@ -19,6 +19,6 @@
     "coffee-script": "~1.12.1",
     "express": "~5.0.0-alpha.3",
     "express.io": "~1.1.13",
-    "graphlib-dot": "~0.6.2"
+    "graphlib-dot": "~0.6.4"
   }
 }
